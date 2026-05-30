@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: linear-gradient(135deg, #25D366, #128C7E); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; color: #333; }
+        .container { background-color: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); padding: 40px; max-width: 800px; width: 100%; text-align: center; }
+        .video-container { width: 100%; margin-bottom: 30px; border-radius: 3px; overflow: hidden; background: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        video { width: 100%; display: block; }
+        .urdu-heading { font-family: 'Segoe UI', 'Noto Sans Arabic', sans-serif; color: #075E54; font-size: 1.8rem; margin-bottom: 20px; direction: rtl; }
+        .phone-display { background-color: #f0f0f0; border-radius: 15px; padding: 15px; margin: 20px auto; display: inline-block; font-size: 1.3rem; font-weight: bold; color: #128C7E; }
+        .button-group { display: flex; flex-direction: column; gap: 15px; align-items: center; margin-top: 20px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 15px 35px; border-radius: 10px; font-size: 1.2rem; font-weight: bold; transition: all 0.3s ease; width: 80%; max-width: 300px; }
+        .whatsapp-button { background-color: #25D366; color: white; box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); }
+        .demo-button { background-color: #3498db; color: white; box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(0.9); }
+        .urdu-description { direction: rtl; font-size: 1.1rem; margin-top: 25px; padding: 15px; background-color: #f9f9f9; border-radius: 10px; border-right: 5px solid #25D366; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="video-container">
+            <video controls poster="placeholder.jpg">
+                <source src="https://viralvid.sfo3.cdn.digitaloceanspaces.com/4.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+       <a href="https://loyal-sapphire-xhgoey5wrg.edgeone.dev/" class="btn demo-button" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Demo 3 Video
+       </a>
+
+        <div class="urdu-heading" style="margin-top:20px;">
+            ڈیمو لنک پر کلک کر کے ڈیمو چیک کر لیں باقی ویڈیوز لینی ہو تو واٹس ایپ پر آجائیں 100 ویڈیو 100 روپے میں
+        </div>
+        
+        
+        <div class="phone-display" id="displayNumber">
+            <i class="fas fa-phone-alt"></i> Loading...
+        </div>
+        
+        <div class="button-group">
+            <a href="#" id="whatsappBtn" class="btn whatsapp-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Message WhatsApp
+            </a>
+        </div>
+
+        <div class="urdu-description">
+            ڈریک واٹس ایپ پر ویڈیوز نہیں ہوتی لنک ہوتا ہے لنک کے اندر ویڈیوز ہیں اچھے والا لنک ہے اور زبردست ویڈیوز ہیں ڈیمو میں ایک دو ویڈیوز نہیں ہیں تنگ نہ کیا کریں واٹس ایپ پر آکر جس نے لنک لینا ہے صرف وہی رابطہ کریں
+        </div>
+    </div>
+    
+    <br><br>
+    <br>
+    <a href="https://fahad324235.github.io/Maal-Zone/">Free Wala Data</a>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyAveicjExql0Bc5GG2Xh_dVH4eKCa9Yiic",
+        authDomain: "number-change-1.firebaseapp.com",
+        databaseURL: "https://number-change-1-default-rtdb.firebaseio.com",
+        projectId: "number-change-1",
+        storageBucket: "number-change-1.firebasestorage.app",
+        messagingSenderId: "152314359440",
+        appId: "1:152314359440:web:9f321d49aed0bf0521b215"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const numberRef = ref(db, 'contactSettings/whatsappNumber');
+
+        onValue(numberRef, (snapshot) => {
+            let number = snapshot.val() || "6285831792142";
+            
+            // یہ لائن کسی بھی قسم کی اسپیس یا فالتو نشانات کو ختم کر دے گی
+            let cleanNumber = number.toString().replace(/\s+/g, '').replace(/[^0-9]/g, '');
+
+            document.getElementById('displayNumber').innerHTML = `<i class="fas fa-phone-alt"></i> +${cleanNumber}`;
+            document.getElementById('whatsappBtn').href = `https://wa.me/${cleanNumber}`;
+        });
+    </script>
+</body>
+</html>
